@@ -105,6 +105,8 @@
 
 ******************************************************************************/
 
+#include <inttypes.h>
+
 #include "util.h"
 #include "cuddInt.h"
 
@@ -3025,10 +3027,10 @@ dp2(
     g = Cudd_Regular(f);
     if (cuddIsConstant(g)) {
 #if SIZEOF_VOID_P == 8
-	(void) fprintf(dd->out,"ID = %c0x%lx\tvalue = %-9g\n", bang(f),
+	(void) fprintf(dd->out,"ID = %c0x%lx\tvalue = %"PRIdPTR"\n", bang(f),
 		(ptruint) g / (ptruint) sizeof(DdNode),cuddV(g));
 #else
-	(void) fprintf(dd->out,"ID = %c0x%x\tvalue = %-9g\n", bang(f),
+	(void) fprintf(dd->out,"ID = %c0x%x\tvalue = %"PRIdPTR"\n", bang(f),
 		(ptruint) g / (ptruint) sizeof(DdNode),cuddV(g));
 #endif
 	return(1);
@@ -3057,7 +3059,7 @@ dp2(
 #endif
     n = cuddT(g);
     if (cuddIsConstant(n)) {
-	(void) fprintf(dd->out,"T = %-9g\t",cuddV(n));
+	(void) fprintf(dd->out,"T = %"PRIdPTR"\t",cuddV(n));
 	T = 1;
     } else {
 #if SIZEOF_VOID_P == 8
@@ -3071,7 +3073,7 @@ dp2(
     n = cuddE(g);
     N = Cudd_Regular(n);
     if (cuddIsConstant(N)) {
-	(void) fprintf(dd->out,"E = %c%-9g\n",bang(n),cuddV(N));
+	(void) fprintf(dd->out,"E = %c%"PRIdPTR"\n",bang(n),cuddV(N));
 	E = 1;
     } else {
 #if SIZEOF_VOID_P == 8
@@ -3126,7 +3128,7 @@ ddPrintMintermAux(
 		else if (v == 1) (void) fprintf(dd->out,"1");
 		else (void) fprintf(dd->out,"-");
 	    }
-	    (void) fprintf(dd->out," % g\n", cuddV(node));
+	    (void) fprintf(dd->out," %"PRIdPTR"\n", cuddV(node));
 	}
     } else {
 	Nv  = cuddT(N);

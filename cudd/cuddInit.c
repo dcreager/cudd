@@ -168,10 +168,10 @@ Cudd_Init(
 	(void) fprintf(unique->err,"Recompile without -DHAVE_IEEE_754\n");
     }
 #endif
-    unique->plusinfinity = cuddUniqueConst(unique,DD_PLUS_INF_VAL);
+    unique->plusinfinity = cuddUniqueConst(unique, INTPTR_MAX);
     if (unique->plusinfinity == NULL) return(0);
     cuddRef(unique->plusinfinity);
-    unique->minusinfinity = cuddUniqueConst(unique,DD_MINUS_INF_VAL);
+    unique->minusinfinity = cuddUniqueConst(unique, INTPTR_MIN);
     if (unique->minusinfinity == NULL) return(0);
     cuddRef(unique->minusinfinity);
     unique->background = unique->zero;

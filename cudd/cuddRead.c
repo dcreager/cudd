@@ -50,6 +50,8 @@
 
 ******************************************************************************/
 
+#include <inttypes.h>
+
 #include "util.h"
 #include "cuddInt.h"
 
@@ -256,7 +258,7 @@ Cudd_addRead(
     cuddRef(*E);
 
     while (! feof(fp)) {
-	err = fscanf(fp, "%d %d %lf", &u, &v, &val);
+	err = fscanf(fp, "%d %d %"PRIdPTR, &u, &v, &val);
 	if (err == EOF) {
 	    break;
 	} else if (err != 3) {

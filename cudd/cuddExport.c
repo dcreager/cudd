@@ -62,6 +62,8 @@
 
 ******************************************************************************/
 
+#include <inttypes.h>
+
 #include "util.h"
 #include "cuddInt.h"
 
@@ -578,7 +580,7 @@ Cudd_DumpDot(
 	scan = nodelist[j];
 	while (scan != NULL) {
 	    if (st_is_member(visited,(char *) scan)) {
-		retval = fprintf(fp,"\"%p\" [label = \"%g\"];\n",
+		retval = fprintf(fp,"\"%p\" [label = \"%"PRIdPTR"\"];\n",
 		    (void *) ((mask & (ptrint) scan) / sizeof(DdNode)),
 		    cuddV(scan));
 		if (retval == EOF) goto failure;
@@ -1162,7 +1164,7 @@ ddDoDumpDaVinci(
     /* Check for special case: If constant node, generate constant 1. */
     if (Cudd_IsConstant(f)) {
 	retval = fprintf(fp,
-			 "l(\"%p\",n(\"constant\",[a(\"OBJECT\",\"%g\")],[]))",
+			 "l(\"%p\",n(\"constant\",[a(\"OBJECT\",\"%"PRIdPTR"\")],[]))",
 			 (void *) id, cuddV(f));
 	if (retval == EOF) {
 	    return(0);
@@ -1257,7 +1259,7 @@ ddDoDumpDDcal(
     if (Cudd_IsConstant(f)) {
 	if (f != DD_ONE(dd) && f != DD_ZERO(dd))
 	    return(0);
-	retval = fprintf(fp, "n%p = %g\n", (void *) id, cuddV(f));
+	retval = fprintf(fp, "n%p = %"PRIdPTR"\n", (void *) id, cuddV(f));
 	if (retval == EOF) {
 	    return(0);
 	} else {

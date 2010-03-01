@@ -61,6 +61,8 @@
 
 ******************************************************************************/
 
+#include <inttypes.h>
+
 #include "util.h"
 #include "cuddInt.h"
 
@@ -382,11 +384,11 @@ Cudd_DebugCheck(
 		    fprintf(table->err,"Error: node has illegal index\n");
 #if SIZEOF_VOID_P == 8
 		    fprintf(table->err,
-			    "       node 0x%lx, id = %u, ref = %u, value = %g\n",
+			    "       node 0x%lx, id = %u, ref = %u, value = %"PRIdPTR"\n",
 			    (ptruint)f,f->index,f->ref,cuddV(f));
 #else
 		    fprintf(table->err,
-			    "       node 0x%x, id = %hu, ref = %hu, value = %g\n",
+			    "       node 0x%x, id = %hu, ref = %hu, value = %"PRIdPTR"\n",
 			    (ptruint)f,f->index,f->ref,cuddV(f));
 #endif
 		    flag = 1;

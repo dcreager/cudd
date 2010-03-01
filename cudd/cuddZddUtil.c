@@ -66,6 +66,8 @@
 
 ******************************************************************************/
 
+#include <inttypes.h>
+
 #include "util.h"
 #include "cuddInt.h"
 
@@ -770,7 +772,7 @@ Cudd_zddDumpDot(
 	scan = nodelist[j];
 	while (scan != NULL) {
 	    if (st_is_member(visited,(char *) scan)) {
-		retval = fprintf(fp,"\"%p\" [label = \"%g\"];\n",
+		retval = fprintf(fp,"\"%p\" [label = \"%"PRIdPTR"\"];\n",
 				 (void *) ((mask & (ptrint) scan) /
 					   sizeof(DdNode)),
 				 cuddV(scan));

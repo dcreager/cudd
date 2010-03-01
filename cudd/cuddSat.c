@@ -69,6 +69,8 @@
 
 ******************************************************************************/
 
+#include <inttypes.h>
+
 #include "util.h"
 #include "cuddInt.h"
 
@@ -809,10 +811,10 @@ Cudd_EqualSupNorm(
 	    if (pr>0) {
 		(void) fprintf(dd->out,"Offending nodes:\n");
 		(void) fprintf(dd->out,
-			       "f: address = %p\t value = %40.30f\n",
+			       "f: address = %p\t value = %"PRIdPTR"\n",
 			       (void *) f, cuddV(f));
 		(void) fprintf(dd->out,
-			       "g: address = %p\t value = %40.30f\n",
+			       "g: address = %p\t value = %"PRIdPTR"\n",
 			       (void *) g, cuddV(g));
 	    }
 	    return(0);

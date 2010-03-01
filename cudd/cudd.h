@@ -61,6 +61,8 @@
 /* Nested includes                                                           */
 /*---------------------------------------------------------------------------*/
 
+#include <stdint.h>
+
 #include "mtr.h"
 #include "epd.h"
 
@@ -91,7 +93,7 @@ extern "C" {
 #define FALSE 0
 #endif
 
-#define CUDD_VALUE_TYPE		double
+#define CUDD_VALUE_TYPE		intptr_t
 #define CUDD_OUT_OF_MEM		-1
 /* The sizes of the subtables and the cache must be powers of two. */
 #define CUDD_UNIQUE_SLOTS	256	/* initial size of subtables */
