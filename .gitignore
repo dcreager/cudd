@@ -1,0 +1,11 @@
+.sconf_temp/
+.sconsign.dblite
+.scons.vars*
+config.log
+
+cudd.pc
+
+*.[oa]
+*.os
+*.so
+*.dylib

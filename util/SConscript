@@ -1,0 +1,41 @@
+Import('root_env shared_files static_files')
+
+env = root_env.Clone()
+
+
+env.Alias("install", env.Install("$INCLUDEDIR/cudd"))
+
+h_files = map(File, \
+    [
+     "util.h",
+    ])
+
+env.Alias("install", env.Install("$INCLUDEDIR/cudd", h_files))
+
+
+libutil_files = map(File, \
+    [
+     "cpu_time.c",
+     "cpu_stats.c",
+     "getopt.c",
+     "safe_mem.c",
+     "strsav.c",
+     "texpand.c",
+     "ptime.c",
+     "prtime.c",
+     "pipefork.c",
+     "pathsearch.c",
+     "stub.c",
+     "tmpfile.c",
+     "datalimit.c",
+    ])
+
+util_shared = map(env.SharedObject, libutil_files)
+shared_files.extend(util_shared)
+env.Alias("util-shared", util_shared)
+
+util_static = map(env.StaticObject, libutil_files)
+static_files.extend(util_static)
+env.Alias("util-static", util_static)
+
+util = env.Alias("util", [util_shared, util_static])

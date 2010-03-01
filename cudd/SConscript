@@ -1,0 +1,90 @@
+Import('root_env shared_files static_files')
+
+env = root_env.Clone()
+
+
+env.Alias("install", env.Install("$INCLUDEDIR/cudd"))
+
+h_files = map(File, \
+    [
+     "cudd.h",
+     "cuddInt.h",
+    ])
+
+env.Alias("install", env.Install("$INCLUDEDIR/cudd", h_files))
+
+
+libcudd_files = map(File, \
+    [
+     "cuddAddAbs.c",
+     "cuddAddApply.c",
+     "cuddAddFind.c",
+     "cuddAddInv.c",
+     "cuddAddIte.c",
+     "cuddAddNeg.c",
+     "cuddAddWalsh.c",
+     "cuddAndAbs.c",
+     "cuddAnneal.c",
+     "cuddApa.c",
+     "cuddAPI.c",
+     "cuddApprox.c",
+     "cuddBddAbs.c",
+     "cuddBddCorr.c",
+     "cuddBddIte.c",
+     "cuddBridge.c",
+     "cuddCache.c",
+     "cuddCheck.c",
+     "cuddClip.c",
+     "cuddCof.c",
+     "cuddCompose.c",
+     "cuddDecomp.c",
+     "cuddEssent.c",
+     "cuddExact.c",
+     "cuddExport.c",
+     "cuddGenCof.c",
+     "cuddGenetic.c",
+     "cuddGroup.c",
+     "cuddHarwell.c",
+     "cuddInit.c",
+     "cuddInteract.c",
+     "cuddLCache.c",
+     "cuddLevelQ.c",
+     "cuddLinear.c",
+     "cuddLiteral.c",
+     "cuddMatMult.c",
+     "cuddPriority.c",
+     "cuddRead.c",
+     "cuddRef.c",
+     "cuddReorder.c",
+     "cuddSat.c",
+     "cuddSign.c",
+     "cuddSolve.c",
+     "cuddSplit.c",
+     "cuddSubsetHB.c",
+     "cuddSubsetSP.c",
+     "cuddSymmetry.c",
+     "cuddTable.c",
+     "cuddUtil.c",
+     "cuddWindow.c",
+     "cuddZddCount.c",
+     "cuddZddFuncs.c",
+     "cuddZddGroup.c",
+     "cuddZddIsop.c",
+     "cuddZddLin.c",
+     "cuddZddMisc.c",
+     "cuddZddPort.c",
+     "cuddZddReord.c",
+     "cuddZddSetop.c",
+     "cuddZddSymm.c",
+     "cuddZddUtil.c",
+    ])
+
+cudd_shared = map(env.SharedObject, libcudd_files)
+shared_files.extend(cudd_shared)
+env.Alias("cudd-shared", cudd_shared)
+
+cudd_static = map(env.StaticObject, libcudd_files)
+static_files.extend(cudd_static)
+env.Alias("cudd-static", cudd_static)
+
+cudd = env.Alias("cudd", [cudd_shared, cudd_static])

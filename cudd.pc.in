@@ -1,0 +1,6 @@
+Name: CUDD
+Description: Colorado University Decision Diagrams
+Version: 2.4.2
+URL: http://vlsi.colorado.edu/~fabio/CUDD/
+Libs: -L${prefix}/lib -lcudd -lm
+Cflags: -I${prefix}/include/cudd

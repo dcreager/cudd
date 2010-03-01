@@ -1,0 +1,29 @@
+Import('root_env shared_files static_files')
+
+env = root_env.Clone()
+
+
+env.Alias("install", env.Install("$INCLUDEDIR/cudd"))
+
+h_files = map(File, \
+    [
+     "epd.h",
+    ])
+
+env.Alias("install", env.Install("$INCLUDEDIR/cudd", h_files))
+
+
+libepd_files = map(File, \
+    [
+     "epd.c",
+    ])
+
+epd_shared = map(env.SharedObject, libepd_files)
+shared_files.extend(epd_shared)
+env.Alias("epd-shared", epd_shared)
+
+epd_static = map(env.StaticObject, libepd_files)
+static_files.extend(epd_static)
+env.Alias("epd-static", epd_static)
+
+epd = env.Alias("epd", [epd_shared, epd_static])

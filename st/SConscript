@@ -1,0 +1,29 @@
+Import('root_env shared_files static_files')
+
+env = root_env.Clone()
+
+
+env.Alias("install", env.Install("$INCLUDEDIR/cudd"))
+
+h_files = map(File, \
+    [
+     "st.h",
+    ])
+
+env.Alias("install", env.Install("$INCLUDEDIR/cudd", h_files))
+
+
+libst_files = map(File, \
+    [
+     "st.c",
+    ])
+
+st_shared = map(env.SharedObject, libst_files)
+shared_files.extend(st_shared)
+env.Alias("st-shared", st_shared)
+
+st_static = map(env.StaticObject, libst_files)
+static_files.extend(st_static)
+env.Alias("st-static", st_static)
+
+st = env.Alias("st", [st_shared, st_static])

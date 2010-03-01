@@ -1,0 +1,31 @@
+Import('root_env shared_files static_files')
+
+env = root_env.Clone()
+
+
+env.Alias("install", env.Install("$INCLUDEDIR/cudd"))
+
+h_files = map(File, \
+    [
+     "mtr.h",
+     "mtrInt.h",
+    ])
+
+env.Alias("install", env.Install("$INCLUDEDIR/cudd", h_files))
+
+
+libmtr_files = map(File, \
+    [
+     "mtrBasic.c",
+     "mtrGroup.c",
+    ])
+
+mtr_shared = map(env.SharedObject, libmtr_files)
+shared_files.extend(mtr_shared)
+env.Alias("mtr-shared", mtr_shared)
+
+mtr_static = map(env.StaticObject, libmtr_files)
+static_files.extend(mtr_static)
+env.Alias("mtr-static", mtr_static)
+
+mtr = env.Alias("mtr", [mtr_shared, mtr_static])

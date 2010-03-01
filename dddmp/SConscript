@@ -1,0 +1,42 @@
+Import('root_env shared_files static_files')
+
+env = root_env.Clone()
+
+
+env.Alias("install", env.Install("$INCLUDEDIR/cudd"))
+
+h_files = map(File, \
+    [
+     "dddmp.h",
+     "dddmpInt.h",
+    ])
+
+env.Alias("install", env.Install("$INCLUDEDIR/cudd", h_files))
+
+
+libdddmp_files = map(File, \
+    [
+     "dddmpStoreBdd.c",
+     "dddmpStoreAdd.c",
+     "dddmpStoreCnf.c",
+     "dddmpLoad.c",
+     "dddmpLoadCnf.c",
+     "dddmpNodeBdd.c",
+     "dddmpNodeAdd.c",
+     "dddmpNodeCnf.c",
+     "dddmpStoreMisc.c",
+     "dddmpUtil.c",
+     "dddmpBinary.c",
+     "dddmpConvert.c",
+     "dddmpDbg.c",
+    ])
+
+dddmp_shared = map(env.SharedObject, libdddmp_files)
+shared_files.extend(dddmp_shared)
+env.Alias("dddmp-shared", dddmp_shared)
+
+dddmp_static = map(env.StaticObject, libdddmp_files)
+static_files.extend(dddmp_static)
+env.Alias("dddmp-static", dddmp_static)
+
+dddmp = env.Alias("dddmp", [dddmp_shared, dddmp_static])
